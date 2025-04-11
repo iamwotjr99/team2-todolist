@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+
+    <style>
+        body {
+          background-color: #f0f0f0;
+        }
+
+        .title{
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+        }
+
+        .Login-container{
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        width: 100%;
+        margin: 10px auto 0;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 1px 40px 70px;
+        border-radius: 20px;
+        }
+
+        input[type="text"],input[type="password"]{
+            font-size: 18px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .button{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button input[type="button"]{
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1 class="title">ToDo List</h1>
+
+    <div class="Login-container">
+        <h1 style="text-align: center;">로그인</h1>
+        <label for="user_ID">이메일:</label>
+        <input type="text" id="user_ID"> <br>
+        <label for="user_PW">비밀번호:</label>
+        <input type="password" id="user_PW"> <br>
+
+        <div class="button">
+            <input type="button" id="login_button" value="로그인">
+            <input type="button" value="회원가입" onclick="location.href='register.html'">
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("login_button").addEventListener("click", function () {
+          const id = document.getElementById("user_ID").value.trim();
+          const password = document.getElementById("user_PW").value.trim();
+      
+          if (!id || !password) {
+            alert("아이디와 비밀번호를 모두 입력하세요.");
+            return;
+          }
+
+          fetch("http://52.64.175.1:8080/api/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: id, password: password })
+          })
+            .then(response => {
+              if (!response.ok) throw new Error("로그인 실패");
+              return response.json();
+            })
+            .then(data => {
+              const token = data.data;
+
+              if(!token){
+                throw new Error("인증된 사용자가 아닙니다!")
+              }
+
+              localStorage.setItem("accessToken", token);
+
+              alert("로그인 성공!");
+              location.href = "Todo_List/index.html";
+            })
+            .catch(error => {
+              console.error("로그인 에러:", error);
+              alert("아이디 또는 비밀번호가 틀렸습니다.");
+            });
+        });
+      </script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="todo-container">  
+        <h1 class="title">ToDo List</h1>  
+        <!-- 로그아웃 버튼, 보기 이상하면 삭제! -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom:10px ;">
+            <button class="logout-btn" onclick="logout()">로그아웃</button> 
+        </div>
+    <div class="content">
+      <!-- 왼쪽: 할일 입력/목록 -->
+      <div class="todo-section">
+        <div class="progress-bar">
+          <div class="progress" id="progress">
+            <span id="progress-text">목표 달성도: 0%</span>
+          </div>
+        </div>
+        <div class="todo-input">
+          <input type="text" id="todoInput" placeholder="할 일을 입력하세요" style="flex: 1" />
+          <select id="todoCategory">
+            <option value="">카테고리</option>
+            <option value="공부">공부</option>
+            <option value="취미">취미</option>
+            <option value="운동">운동</option>
+          </select>
+          <button onclick="addTodo()">입력</button>
+        </div>
+        <div class="todo-tabs">
+          <button class="category-tab active" onclick="filterTodos('전체', this)">전체</button>
+          <button class="category-tab" onclick="filterTodos('공부', this)">공부</button>
+          <button class="category-tab" onclick="filterTodos('취미', this)">취미</button>
+          <button class="category-tab" onclick="filterTodos('운동', this)">운동</button>
+        </div>
+        <ul id="todoList"></ul>
+      </div>
+
+      <!-- 오른쪽: 최신 할일 목록 -->
+      <div class="ranking-section">
+        <h2>최신 할일 목록</h2>
+        <div class="ranking-tabs">
+          <button class="ranking-tab active" onclick="filterRanking('전체', this)">전체</button>
+          <button class="ranking-tab" onclick="filterRanking('공부', this)">공부</button>
+          <button class="ranking-tab" onclick="filterRanking('취미', this)">취미</button>
+          <button class="ranking-tab" onclick="filterRanking('운동', this)">운동</button>
+        </div>
+        <ul id ="otherTodoList" class="other-todo-list">
+
+
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
