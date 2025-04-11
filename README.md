@@ -25,6 +25,8 @@ JWT 인증을 이용한 로그인 기능과 카테고리 별로 Todo 관리, 좋
 = EC2 + RDS 배포
 
 ## 프로젝트 구조
+
+``` plaintext
 📁 com.team2.TodoList
  ┣ 📂 common
  ┃ ┣ 📂 domain/exception – 에러 코드 및 예외 처리
@@ -42,9 +44,11 @@ JWT 인증을 이용한 로그인 기능과 카테고리 별로 Todo 관리, 좋
    ┣ 📂 repository – UserRepository 구현 및 Entity, JPA
    ┣ 📂 security – CustomUserDetail, Service
    ┗ 📂 ui – UserController
+``` 
 
 <details>
 <summary>📁 전체 프로젝트 구조 펼치기</summary>
+
 ``` plaintext
 📁 src
  ┗ 📁 main
